@@ -42,10 +42,17 @@ repositories {
 
 
 dependencies {
+    compile('org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5')
     compile('org.scala-lang:scala-library:2.12.4')
     compile('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.kafka:spring-kafka')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.kafka:spring-kafka:2.1.6.RELEASE')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
