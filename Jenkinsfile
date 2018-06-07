@@ -27,8 +27,9 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo "自动部署开始"'
+                sh 'rm -rf /app/${name}.jar'
                 sh 'mv build/libs/*.jar /app/${name}.jar'
-                sh 'java -jar /app/${name}.jar'
+                sh 'java -jar -Duser.timezone=GMT+8 /app/${name}.jar &'
                 sh 'echo "自动部署结束"'
             }
         }
