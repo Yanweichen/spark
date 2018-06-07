@@ -6,7 +6,7 @@ pipeline {
     }
 
     tools{
-        gradle 'gradle'
+        gradle 'gradle-4.8'
     }
 
     stages {
