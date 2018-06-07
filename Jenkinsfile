@@ -5,6 +5,10 @@ pipeline {
         name = "spark_demo"
     }
 
+    tools{
+        gradle 'gradle'
+    }
+
     stages {
         stage('Build') {
             steps {
