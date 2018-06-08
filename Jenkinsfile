@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         name = "spark_demo"
+        project_port = "8080"
+        docker_port = "8099"
     }
 
     tools {
@@ -29,7 +31,7 @@ pipeline {
                 sh 'echo "自动部署开始"'
                 sh 'cp build/libs/*.jar /app/${name}.jar'
                 sh 'cp Dockerfile /app/Dockerfile'
-                sh 'sh ShellFile.sh ${name} "8080" "8099"'
+                sh 'sh ShellFile.sh ${name} ${project_port} ${docker_port}'
                 sh 'rm -rf /app/${name}.jar'
                 sh 'rm -rf /app/Dockerfile'
                 sh 'echo "自动部署结束"'
