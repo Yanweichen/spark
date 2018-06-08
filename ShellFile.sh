@@ -5,10 +5,9 @@ NAME=$1
 if [[ `docker ps | grep ${NAME}` ]];
 then
     docker stop ${NAME}
+    docker rm ${NAME}
+    docker rmi ${NAME}
 fi;
-
-docker rm ${NAME}
-docker rmi ${NAME}
 
 #. 代表当前目录
 docker build -t ${NAME} --build-arg NAME=${NAME} .
