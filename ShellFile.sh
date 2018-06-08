@@ -13,4 +13,4 @@ fi;
 
 #. 代表当前目录
 docker build -t ${NAME} --build-arg imageName=${NAME} .
-docker run -d -p ${PROJECT_PORT}:${DOCKER_PORT} --name ${NAME} ${NAME}
+docker run -d -p ${DOCKER_PORT}:${PROJECT_PORT} --name ${NAME} ${NAME}
