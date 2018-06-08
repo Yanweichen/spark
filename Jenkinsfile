@@ -27,8 +27,9 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo "自动部署开始"'
-                sh 'mv build/libs/*.jar ${name}.jar'
+                sh 'cp build/libs/*.jar /app/${name}.jar'
                 sh 'sh ShellFile.sh ${name} "build/libs"'
+                sh 'rm -rf /app/${name}.jar'
                 sh 'echo "自动部署结束"'
             }
         }
