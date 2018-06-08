@@ -4,4 +4,4 @@ ARG projectPort
 COPY $imageName.jar /opt/
 EXPOSE $projectPort
 WORKDIR /opt/
-CMD ["sh", "-c", "java", "-jar", "-Duser.timezone=GMT+8", "$imageName.jar", "&"]
+CMD ["sh", "-c", "echo java jar -Duser.timezone=GMT+8 $imageName.jar &"]
