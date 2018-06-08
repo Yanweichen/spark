@@ -5,7 +5,7 @@ pipeline {
         name = "spark_demo"
     }
 
-    tools{
+    tools {
         gradle 'gradle-4.8'
     }
 
@@ -27,9 +27,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo "自动部署开始"'
-                sh 'rm -rf /app/${name}.jar'
-                sh 'mv build/libs/*.jar /app/${name}.jar'
-                sh 'java -jar -Duser.timezone=GMT+8 /app/${name}.jar & '
+                sh 'ShellFile.sh ${name}'
                 sh 'echo "自动部署结束"'
             }
         }
