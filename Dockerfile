@@ -1,5 +1,7 @@
 FROM anapsix/alpine-java:latest
-COPY ${imageName:-def_name}.jar /opt/
-EXPOSE ${projectPort:-8001}
+ARG imageName
+ARG projectPort
+COPY $imageName.jar /opt/
+EXPOSE $projectPort
 WORKDIR /opt/
-CMD ["java", "-jar", "-Duser.timezone=GMT+8", "${imageName:-def_name}.jar", "&"]
+CMD ["java", "-jar", "-Duser.timezone=GMT+8", "$imageName.jar", "&"]
