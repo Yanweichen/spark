@@ -2,6 +2,7 @@
 
 NAME=$1
 PROJECT_DIR=$2
+PORT=$3
 
 if [[ `docker ps | grep ${NAME}` ]];
 then
@@ -12,4 +13,4 @@ fi;
 
 #. 代表当前目录
 docker build -t ${NAME} --build-arg imageName=${NAME} --build-arg projectDir=${PROJECT_DIR} .
-docker run -d --name ${NAME} ${NAME}
+docker run -d -p ${PORT:-8001}:8001 --name ${NAME} ${NAME}
