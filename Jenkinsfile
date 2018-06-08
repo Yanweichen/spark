@@ -27,7 +27,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo "自动部署开始"'
-                sh 'ShellFile.sh ${name}'
+                sh 'sh ShellFile.sh ${name}'
                 sh 'echo "自动部署结束"'
             }
         }
