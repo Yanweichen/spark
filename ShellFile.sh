@@ -11,5 +11,5 @@ then
 fi;
 
 #. 代表当前目录
-docker build -t ${NAME} --build-arg imageName=${NAME} projectDir=${PROJECT_DIR} .
+docker build -t ${NAME} --build-arg imageName=${NAME} --build-arg projectDir=${PROJECT_DIR} .
 docker run -d --name ${NAME} ${NAME}
