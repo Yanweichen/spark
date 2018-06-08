@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "自动构建开始"'
-                sh 'gradle clean --refresh-dependencies build'
+                sh 'gradle clean build'
                 sh 'echo "自动构建结束"'
             }
         }
