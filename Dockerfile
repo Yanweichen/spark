@@ -4,4 +4,5 @@ ARG projectPort
 COPY $imageName.jar /opt/
 EXPOSE $projectPort
 WORKDIR /opt/
-RUN java -jar -Duser.timezone=GMT+8 $imageName.jar &
+ENV PROJECT_JAR_NAME=$imageName
+RUN java -jar -Duser.timezone=GMT+8 $PROJECT_JAR_NAME.jar &
