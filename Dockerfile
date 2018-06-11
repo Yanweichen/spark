@@ -1,5 +1,6 @@
 FROM anapsix/alpine-java:latest
 ARG imageName
+RUN echo $imageName
 ENV PROJECT_JAR_NAME=$imageName
 COPY $imageName.jar /opt/
 WORKDIR /opt/
