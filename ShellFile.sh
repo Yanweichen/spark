@@ -9,6 +9,7 @@ then
     docker stop ${NAME}
     docker rm ${NAME}
     docker rmi ${NAME}
+    echo "------------docker images is rm finish------------"
 fi;
 
 #. 代表当前目录
