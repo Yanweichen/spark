@@ -12,6 +12,14 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']]
+                      , doGenerateSubmoduleConfigurations: false
+                      , extensions: []
+                      , submoduleCfg: []
+                      , userRemoteConfigs: [[credentialsId: '4f6ac063-bd6b-4cc7-9a60-6bfc822259af'
+                                             , url: 'https://github.com/Yanweichen/spark.git']]])
+        }
         stage('Build') {
             steps {
                 sh 'echo "自动构建开始"'
