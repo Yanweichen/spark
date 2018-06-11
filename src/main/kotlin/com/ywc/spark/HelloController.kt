@@ -13,5 +13,5 @@ class HelloController {
     private lateinit var test: Test
 
     @GetMapping("/kafka")
-    fun hello() = test.say
+    fun hello() = test.say.apply { println("--------------------run") }
 }
