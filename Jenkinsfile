@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh 'echo "自动部署开始"'
                 sh 'rm -rf ${name}.jar'
-                sh 'cp build/libs/*.jar ../../${name}.jar'
+                sh 'cp build/libs/*.jar ${name}.jar'
                 sh 'sh ShellFile.sh ${name} ${project_port} ${docker_port}'
                 sh 'echo "自动部署结束"'
             }
