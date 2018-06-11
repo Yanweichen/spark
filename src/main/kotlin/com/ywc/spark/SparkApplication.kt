@@ -10,6 +10,5 @@ class SparkApplication
 
 fun main(args: Array<String>) {
     runApplication<SparkApplication>(*args)
-//    BeanFacotryUtil.getBean(Producer::class.java).init()
-    println("finish")
+    println(System.getenv())
 }
