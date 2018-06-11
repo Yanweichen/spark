@@ -29,10 +29,8 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo "自动部署开始"'
-                sh 'rm -rf /app/${name}.jar'
-                sh 'rm -rf /app/Dockerfile'
-                sh 'cp build/libs/*.jar /app/${name}.jar'
-                sh 'cp Dockerfile /app/Dockerfile'
+                sh 'rm -rf ${name}.jar'
+                sh 'cp build/libs/*.jar ../${name}.jar'
                 sh 'sh ShellFile.sh ${name} ${project_port} ${docker_port}'
                 sh 'echo "自动部署结束"'
             }
