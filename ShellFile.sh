@@ -13,6 +13,6 @@ then
 fi;
 
 #. 代表当前目录
-docker build --no-cache -t ${NAME} --build-arg imageName=${NAME} .
+docker build -t ${NAME} --build-arg imageName=${NAME} .
 #DOCKER_PORT 为宿主机端口 PROJECT_PORT 为容器内部端口
 docker run -d -p ${DOCKER_PORT}:${PROJECT_PORT} --name ${NAME} ${NAME}
