@@ -27,7 +27,7 @@ class SparkDemoService() {
     // 在生产环境中，建议大家把checkpoint设置到HDFS的某个文件夹中
     ssc.checkpoint(".")
 
-    val lines = ssc.socketTextStream("192.168.71.128", 9999, StorageLevel.MEMORY_AND_DISK_SER)
+    val lines = ssc.socketTextStream("localhost", 9999, StorageLevel.MEMORY_AND_DISK_SER)
 
     val result = lines.flatMap(_.split(" ")).map((_, 1))
     val state = result.updateStateByKey[Int](
