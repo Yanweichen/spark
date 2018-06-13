@@ -3,4 +3,4 @@ ARG imageName
 ENV PROJECT_JAR_NAME=$imageName
 COPY $imageName.jar /opt/
 WORKDIR /opt/
-CMD java -jar -Duser.timezone=GMT+8 $PROJECT_JAR_NAME.jar
+CMD java -Xms256m -Xmx1024m -jar -Duser.timezone=GMT+8 $PROJECT_JAR_NAME.jar
