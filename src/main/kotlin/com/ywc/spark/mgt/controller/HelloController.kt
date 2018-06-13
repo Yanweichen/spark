@@ -1,5 +1,6 @@
-package com.ywc.spark
+package com.ywc.spark.mgt.controller
 
+import com.ywc.spark.mgt.model.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

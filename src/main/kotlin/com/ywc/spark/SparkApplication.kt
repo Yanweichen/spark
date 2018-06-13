@@ -10,5 +10,4 @@ class SparkApplication
 
 fun main(args: Array<String>) {
     runApplication<SparkApplication>(*args)
-    println(System.getenv())
 }
