@@ -1,7 +1,10 @@
 package com.ywc.spark.mgt.service
 
+import com.ywc.spark.mgt.model.PersonOuterClass.Person
+import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
+import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 import org.apache.spark.streaming.{Seconds, State, StateSpec, StreamingContext}
 import org.springframework.stereotype.Service
 
@@ -43,4 +46,29 @@ class SparkDemoService() {
     ssc.awaitTermination()
   }
 
+  def kafkaStream(): Unit = {
+    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StatefulNetworkWordCount")
+      .set("spark.serializer","org.apache.spark.serializer.KryoSerializer")
+    val ssc = new StreamingContext(sparkConf, Seconds(5))
+
+    val kafkaParams = Map[String, Object](
+      "bootstrap.servers" -> "localhost:9092,anotherhost:9092",
+      "key.deserializer" -> classOf[StringDeserializer],
+      "value.deserializer" -> classOf[StringDeserializer],
+      "group.id" -> "use_a_separate_group_id_for_each_stream",
+      "auto.offset.reset" -> "latest",
+      "enable.auto.commit" -> (false: java.lang.Boolean)
+    )
+
+    val topics = Array("topicA", "topicB")
+    val stream = KafkaUtils.createDirectStream[String, String](
+      ssc,
+      LocationStrategies.PreferConsistent,
+      ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
+    )
+
+    stream.print()
+    ssc.start()
+    ssc.awaitTermination()
+  }
 }

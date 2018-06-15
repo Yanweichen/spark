@@ -1,7 +1,10 @@
 syntax = "proto3";
 
+package com.ywc.spark.mgt.model;
+
 message Person {
     string name = 1;
     int32 id = 2;
     string email = 3;
+    int32 sex = 4;
 }
