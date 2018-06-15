@@ -1,5 +1,23 @@
 
 spring:
+  datasource:
+      url: jdbc:mariadb://192.168.71.128:3306/spark
+      username: root
+      password: yanweichen
+      driver-class-name: org.mariadb.jdbc.Driver
+      druid:
+        initial-size: 20
+        max-active: 300
+        min-idle: 1
+        max-wait: 10000
+        time-between-eviction-runs-millis: 10000
+        min-evictable-idle-time-millis: 50000
+        validation-query: SELECT 'x'
+        test-while-idle: true
+        test-on-return: false
+        test-on-borrow: false
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
   profiles:
     active: ${JAR_ENV:dev}
   kafka:
@@ -14,3 +32,8 @@ spring:
       batch-size: 65536
       buffer-memory: 524288
     client-id: 1
+
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
