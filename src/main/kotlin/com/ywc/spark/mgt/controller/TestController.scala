@@ -10,7 +10,7 @@ class TestController @Autowired()(val sparkDemoService: SparkDemoService) {
 
   @GetMapping(Array("/scala"))
   def hello(): String = {
-    sparkDemoService.statefulNetworkWordCount()
+    sparkDemoService.kafkaStream()
     "hello scala"
   }
 }

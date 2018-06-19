@@ -1,16 +1,21 @@
+import com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask
+
 buildscript {
     ext {
         kotlinVersion = '1.2.41'
         springBootVersion = '2.0.2.RELEASE'
     }
     repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath('com.google.protobuf:protobuf-gradle-plugin:0.8.5')
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.9.1"
     }
 }
 
@@ -22,6 +27,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.google.protobuf'
+apply plugin: "com.commercehub.gradle.plugin.avro"
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
 
 group = 'com.ywc'
 version = '0.0.1-SNAPSHOT'
@@ -55,6 +62,7 @@ sourceSets {
 repositories {
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -63,15 +71,17 @@ dependencies {
     compile("org.scala-lang:scala-compiler:2.11.4")
     compile("org.scala-lang:scala-reflect:2.11.4")
     compile('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.boot:spring-boot-starter-web') {
-        exclude module: 'slf4j-log4j12'
-    }
+    compile('org.springframework.boot:spring-boot-starter-web')
     compile('tk.mybatis:mapper-spring-boot-starter:2.0.3-beta1')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
     compile('org.mariadb.jdbc:mariadb-java-client:2.2.5')
     compile('com.alibaba:druid-spring-boot-starter:1.1.9')
     compile('com.google.protobuf:protobuf-java:3.5.1')
+    compile('com.google.protobuf:protobuf-java-util:3.5.1')
+    compile('com.google.code.gson:gson:2.8.4')
+    compile('com.alibaba:fastjson:1.2.47')
+    compile('org.apache.avro:avro:1.8.2')
     //kafka
     compile('org.springframework.kafka:spring-kafka:2.1.6.RELEASE')
     compile('org.apache.spark:spark-streaming-kafka-0-10_2.11:2.3.1')
@@ -116,4 +126,14 @@ idea {
         // If you have additional sources, add them here:
         sourceDirs += file("$projectDir/src/main/kotlin")
     }
+}
+
+avro {
+    fieldVisibility = "PRIVATE"
+    outputCharacterEncoding = "UTF-8"
+}
+
+task generateAvro(type: GenerateAvroJavaTask) {
+    source = file("$projectDir/src/main/avro")
+    outputDir = file("$projectDir/src/main/java")
 }
