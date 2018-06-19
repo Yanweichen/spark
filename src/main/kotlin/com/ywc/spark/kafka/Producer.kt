@@ -18,23 +18,23 @@ import org.springframework.stereotype.Component
 class Producer {
 
     @Autowired
-//    lateinit var template: KafkaTemplate<String, SpecificRecordBase>
-    lateinit var template: KafkaTemplate<String, Message>
+    lateinit var template: KafkaTemplate<String, SpecificRecordBase>
+//    lateinit var template: KafkaTemplate<String, Message>
 
     fun init() = runBlocking {
         launch(CommonPool) {
             while (true) {
-                PersonOuterClass.Person.newBuilder()
-                        .setName("kafka" + RandomStringUtils.randomNumeric(5))
-                        .setEmail("abc").build().run {
-                            template.send("test", this)
-                        }
-//                with(User()) {
-//                    name = "kafka" + RandomStringUtils.randomNumeric(100)
-//                    favoriteColor = "blue"
-//                    favoriteNumber = RandomUtils.nextInt(10)
-//                    template.send("test","test", this)
-//                }
+//                PersonOuterClass.Person.newBuilder()
+//                        .setName("kafka" + RandomStringUtils.randomNumeric(5))
+//                        .setEmail("abc").build().run {
+//                            template.send("test", this)
+//                        }
+                with(User()) {
+                    name = "kafka" + RandomStringUtils.randomNumeric(5)
+                    favoriteColor = "blue"
+                    favoriteNumber = RandomUtils.nextInt(10)
+                    template.send("test","test", this)
+                }
                 delay(2000L)
             }
         }

@@ -15,8 +15,12 @@ class Consumer : CommandLineRunner {
     override fun run(vararg args: String?) {
     }
 
+//    @KafkaListener(topics = ["test"])
+//    fun listen(cr: ConsumerRecord<String, PersonOuterClass.Person>) {
+//        println("kafka收到测试数据:${cr.value()}")
+//    }
     @KafkaListener(topics = ["test"])
-    fun listen(cr: ConsumerRecord<String, PersonOuterClass.Person>) {
+    fun listen(cr: ConsumerRecord<String, User>) {
         println("kafka收到测试数据:${cr.value()}")
     }
 }
