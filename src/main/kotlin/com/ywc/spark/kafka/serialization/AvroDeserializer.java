@@ -24,7 +24,7 @@ public class AvroDeserializer implements Deserializer<SpecificRecordBase> {
     @Override
     public SpecificRecordBase deserialize(String topic, byte[] data) {
         SpecificDatumReader<SpecificRecordBase> userDatumReader =
-                new SpecificDatumReader<>(Topic.Companion.matchFor(topic).getTopicType().getSchema());
+                new SpecificDatumReader<>(Topic.matchFor(topic).getTopicType().getSchema());
         BinaryDecoder binaryDecoder = DecoderFactory.get()
                 .directBinaryDecoder(new ByteArrayInputStream(data), null);
         try {

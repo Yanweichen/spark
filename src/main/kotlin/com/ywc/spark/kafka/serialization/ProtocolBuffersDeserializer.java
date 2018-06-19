@@ -20,7 +20,7 @@ public class ProtocolBuffersDeserializer implements Deserializer<Message> {
     @Override
     public Message deserialize(String topic, byte[] data) {
         try {
-            return Topic.Companion.matchFor(topic).getPTopicType().getParserForType().parseFrom(data);
+            return Topic.matchFor(topic).getpTopicType().getParserForType().parseFrom(data);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
             return null;

@@ -27,8 +27,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.google.protobuf'
-apply plugin: "com.commercehub.gradle.plugin.avro"
-apply plugin: "com.commercehub.gradle.plugin.avro-base"
+//apply plugin: "com.commercehub.gradle.plugin.avro"
+//apply plugin: "com.commercehub.gradle.plugin.avro-base"
 
 group = 'com.ywc'
 version = '0.0.1-SNAPSHOT'
@@ -48,12 +48,14 @@ compileTestKotlin {
 
 sourceSets {
     main {
+        java { srcDir "src/main/java" }
         java { srcDir "src/main/kotlin" }
         scala { srcDir "src/main/kotlin" }
         proto { srcDir 'src/main/kotlin' }
     }
     test {
         java { srcDir "src/test/kotlin" }
+        java { srcDir "src/main/java" }
         scala { srcDir "src/main/kotlin" }
         proto { srcDir 'src/test/kotlin' }
     }
@@ -128,12 +130,12 @@ idea {
     }
 }
 
-avro {
-    fieldVisibility = "PRIVATE"
-    outputCharacterEncoding = "UTF-8"
-}
+//avro {
+//    fieldVisibility = "PRIVATE"
+//    outputCharacterEncoding = "UTF-8"
+//}
 
-task generateAvro(type: GenerateAvroJavaTask) {
-    source = file("$projectDir/src/main/avro")
-    outputDir = file("$projectDir/src/main/java")
-}
+//task generateAvro(type: GenerateAvroJavaTask) {
+//    source = file("$projectDir/src/main/avro")
+//    outputDir = file("$projectDir/src/main/java")
+//}
