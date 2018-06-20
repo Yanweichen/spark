@@ -1,7 +1,7 @@
 package com.ywc.spark.kafka;
 
 import com.google.protobuf.Message;
-import com.ywc.spark.mgt.model.PersonOuterClass;
+import com.ywc.spark.mgt.model.PersonOut;
 import example.avro.User;
 import org.apache.avro.specific.SpecificRecordBase;
 
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public enum Topic {
 
-    TEST("test", new User(), PersonOuterClass.Person.getDefaultInstance());
+    TEST("test", new User(), PersonOut.Person.getDefaultInstance());
 
 
     private String topicName;

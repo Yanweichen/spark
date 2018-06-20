@@ -1,7 +1,5 @@
 package com.ywc.spark.kafka
 
-import com.google.protobuf.Message
-import com.ywc.spark.mgt.model.PersonOuterClass
 import example.avro.User
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.delay
@@ -14,23 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
-@Component
-class Producer {
+//@Component
+class AvroProducer {
 
     @Autowired
     lateinit var template: KafkaTemplate<String, SpecificRecordBase>
-//    lateinit var template: KafkaTemplate<String, Message>
 
     fun init() = runBlocking {
         launch(CommonPool) {
             while (true) {
-//                PersonOuterClass.Person.newBuilder()
-//                        .setName("kafka" + RandomStringUtils.randomNumeric(5))
-//                        .setEmail("abc").build().run {
-//                            template.send("test", this)
-//                        }
                 with(User()) {
-                    name = "kafka" + RandomStringUtils.randomNumeric(5)
+                    name = "avro" + RandomStringUtils.randomNumeric(5)
                     favoriteColor = "blue"
                     favoriteNumber = RandomUtils.nextInt(10)
                     template.send("test","test", this)

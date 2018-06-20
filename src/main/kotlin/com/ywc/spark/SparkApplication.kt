@@ -1,6 +1,6 @@
 package com.ywc.spark
 
-import com.ywc.spark.kafka.Producer
+import com.ywc.spark.kafka.ProtocolBuffersProducer
 import com.ywc.spark.util.BeanFacotryUtil
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -12,5 +12,5 @@ class SparkApplication
 
 fun main(args: Array<String>) {
     runApplication<SparkApplication>(*args)
-    BeanFacotryUtil.getBean(Producer::class.java).init()
+    BeanFacotryUtil.getBean(ProtocolBuffersProducer::class.java).init()
 }

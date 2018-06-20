@@ -27,8 +27,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.google.protobuf'
-//apply plugin: "com.commercehub.gradle.plugin.avro"
-//apply plugin: "com.commercehub.gradle.plugin.avro-base"
+apply plugin: "com.commercehub.gradle.plugin.avro"
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
 
 group = 'com.ywc'
 version = '0.0.1-SNAPSHOT'
@@ -102,6 +102,7 @@ dependencies {
     compile('org.apache.spark:spark-streaming_2.11:2.3.1') {
         exclude module: 'slf4j-log4j12'
     }
+    compile('com.sun.jersey.contribs:jersey-spring:1.19.4')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
@@ -130,12 +131,12 @@ idea {
     }
 }
 
-//avro {
-//    fieldVisibility = "PRIVATE"
-//    outputCharacterEncoding = "UTF-8"
-//}
+avro {
+    fieldVisibility = "PRIVATE"
+    outputCharacterEncoding = "UTF-8"
+}
 
-//task generateAvro(type: GenerateAvroJavaTask) {
-//    source = file("$projectDir/src/main/avro")
-//    outputDir = file("$projectDir/src/main/java")
-//}
+task generateAvro(type: GenerateAvroJavaTask) {
+    source = file("$projectDir/src/main/avro")
+    outputDir = file("$projectDir/src/main/java")
+}

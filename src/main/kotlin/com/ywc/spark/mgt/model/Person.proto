@@ -2,9 +2,22 @@ syntax = "proto3";
 
 package com.ywc.spark.mgt.model;
 
+option java_outer_classname = "PersonOut";
+
 message Person {
     string name = 1;
     int32 id = 2;
     string email = 3;
-    int32 sex = 4;
+    SEX sex = 4;
+    repeated string phone = 5;
+    map<int32,string> testMap = 6;
+
+    enum SEX {
+        MAN = 0;
+        WOMAN = 1;
+    }
+
+    message Student {
+        string id = 1;
+    }
 }

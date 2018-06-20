@@ -1,8 +1,7 @@
 package com.ywc.spark.mgt.service
 
 import com.ywc.spark.kafka.serialization.{AvroDeserializer, ProtocolBuffersDeserializer, ProtocolBuffersSerializer}
-import com.ywc.spark.mgt.model.PersonOuterClass.Person
-import example.avro.User
+import com.ywc.spark.mgt.model.PersonOut.Person
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
@@ -49,26 +48,29 @@ class SparkDemoService() {
   }
 
   def kafkaStream(): Unit = {
-    val sparkConf = new SparkConf().setMaster("""spark://localhost:7077""").setAppName("kafkaStream")
+//    val master = "spark://192.168.71.128:7077"
+    val master = "local[2]"
+    val sparkConf = new SparkConf()
+      .setMaster(master)
+      .setAppName("kafkaStream")
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
     val ssc = new StreamingContext(sparkConf, Seconds(5))
 
     val kafkaParams = Map[String, Object](
       "bootstrap.servers" -> "192.168.71.128:9092",
-      //      "key.deserializer" -> classOf[StringDeserializer],
-      //      "value.deserializer" -> classOf[ProtocolBuffersDeserializer],
-      "key.deserializer" -> classOf[StringDeserializer],
-      "value.deserializer" -> classOf[AvroDeserializer],
+            "key.deserializer" -> classOf[StringDeserializer],
+            "value.deserializer" -> classOf[ProtocolBuffersDeserializer],
+//      "value.deserializer" -> classOf[AvroDeserializer],
       "group.id" -> "use_a_separate_group_id_for_each_stream",
       "auto.offset.reset" -> "latest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
 
     val topics = Array("test")
-    val stream = KafkaUtils.createDirectStream[String, User](
+    val stream = KafkaUtils.createDirectStream[String, Person](
       ssc,
       LocationStrategies.PreferConsistent,
-      ConsumerStrategies.Subscribe[String, User](topics, kafkaParams)
+      ConsumerStrategies.Subscribe[String, Person](topics, kafkaParams)
     )
 
     stream.foreachRDD(rdd => rdd.foreach(x => println("spark收到测试数据:" + x.value())))
