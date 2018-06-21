@@ -10,6 +10,9 @@ import org.apache.commons.lang3.RandomStringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
+import org.apache.kafka.clients.admin.NewTopic
+import org.springframework.context.annotation.Bean
+
 
 @Component
 class ProtocolBuffersProducer {

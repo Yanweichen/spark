@@ -48,19 +48,19 @@ class SparkDemoService() {
   }
 
   def kafkaStream(): Unit = {
-//    val master = "spark://192.168.71.128:7077"
-    val master = "local[2]"
+    val master = "spark://192.168.71.128:7077"
+    //    val master = "local[2]"
     val sparkConf = new SparkConf()
       .setMaster(master)
       .setAppName("kafkaStream")
-      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .set("spark.executor.cores", "4")
     val ssc = new StreamingContext(sparkConf, Seconds(5))
 
     val kafkaParams = Map[String, Object](
       "bootstrap.servers" -> "192.168.71.128:9092",
-            "key.deserializer" -> classOf[StringDeserializer],
-            "value.deserializer" -> classOf[ProtocolBuffersDeserializer],
-//      "value.deserializer" -> classOf[AvroDeserializer],
+      "key.deserializer" -> classOf[StringDeserializer],
+      "value.deserializer" -> classOf[ProtocolBuffersDeserializer],
+      //      "value.deserializer" -> classOf[AvroDeserializer],
       "group.id" -> "use_a_separate_group_id_for_each_stream",
       "auto.offset.reset" -> "latest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
@@ -75,6 +75,5 @@ class SparkDemoService() {
 
     stream.foreachRDD(rdd => rdd.foreach(x => println("spark收到测试数据:" + x.value())))
     ssc.start()
-    ssc.awaitTermination()
   }
 }
