@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+//package com.xy;
+
+option java_package = "com.xy";
+option java_outer_classname = "ExchangeMessage";
+
+message Head {
+    uint64 source = 1;
+    uint64 destination = 2;
+    uint64 mission = 3;
+    uint64 spacecraft = 4;
+    uint64 type = 5;
+    google.protobuf.Timestamp time = 6;
+}
+
+message Frame {
+    Head head = 1;
+    google.protobuf.Any payload = 2;
+}
+
+message Origin {
+    bytes value = 1;
+}
+
+message TelemeteringParam {
+    bytes value = 1;
+    string code = 2;
+    uint64 id = 3;
+}
+
+message TelemeteringParamResult {
+    string value = 1;
+    string code =2;
+    uint64 id = 3;
+}

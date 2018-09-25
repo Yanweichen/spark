@@ -1,6 +1,7 @@
 package com.ywc.spark.kafka;
 
 import com.google.protobuf.Message;
+import com.xy.ExchangeMessage;
 import com.ywc.spark.mgt.model.PersonOut;
 import example.avro.User;
 import org.apache.avro.specific.SpecificRecordBase;
@@ -13,7 +14,9 @@ import java.util.stream.Stream;
  */
 public enum Topic {
 
-    TEST("test", new User(), PersonOut.Person.getDefaultInstance());
+    TEST("orbit_output", new User(), PersonOut.Person.getDefaultInstance()),
+    TEST2("test", new User(), PersonOut.Person.getDefaultInstance()),
+    TEST1("^YC.*$", new User(), ExchangeMessage.Frame.getDefaultInstance());
 
 
     private String topicName;
@@ -41,7 +44,7 @@ public enum Topic {
     }
 
     public static Topic matchFor(String topicName) {
-        return Stream.of(values()).filter(topic -> topic.getTopicName().equals(topicName)).findAny()
+        return Stream.of(values()).filter(topic -> topicName.matches(topic.getTopicName())).findAny()
                 .orElseThrow(() -> new RuntimeException("未知的topicName:" + topicName));
     }
 }

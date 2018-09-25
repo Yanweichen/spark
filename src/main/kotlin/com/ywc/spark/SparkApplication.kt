@@ -1,6 +1,5 @@
 package com.ywc.spark
 
-import com.ywc.spark.kafka.AvroProducer
 import com.ywc.spark.kafka.ProtocolBuffersProducer
 import com.ywc.spark.util.BeanFacotryUtil
 import org.springframework.boot.autoconfigure.SpringBootApplication

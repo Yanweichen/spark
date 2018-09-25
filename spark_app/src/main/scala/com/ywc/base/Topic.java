@@ -1,6 +1,7 @@
 package com.ywc.base;
 
 import com.google.protobuf.Message;
+import com.xy.ExchangeMessage;
 import com.ywc.spark.mgt.model.PersonOut;
 
 import java.util.stream.Stream;
@@ -11,7 +12,8 @@ import java.util.stream.Stream;
  */
 public enum Topic {
 
-    TEST("test", PersonOut.Person.getDefaultInstance());
+    TEST("orbit_output", PersonOut.Person.getDefaultInstance()),
+    TEST1("hawkeye_s", ExchangeMessage.Frame.getDefaultInstance());
 
 
     private String topicName;
@@ -35,4 +37,5 @@ public enum Topic {
         return Stream.of(values()).filter(topic -> topic.getTopicName().equals(topicName)).findAny()
                 .orElseThrow(() -> new RuntimeException("未知的topicName:" + topicName));
     }
+
 }

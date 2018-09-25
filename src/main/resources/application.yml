@@ -1,27 +1,28 @@
 
 spring:
-  datasource:
-      url: jdbc:mariadb://192.168.71.128:3306/spark
-      username: root
-      password: yanweichen
-      driver-class-name: org.mariadb.jdbc.Driver
-      druid:
-        initial-size: 20
-        max-active: 300
-        min-idle: 1
-        max-wait: 10000
-        time-between-eviction-runs-millis: 10000
-        min-evictable-idle-time-millis: 50000
-        validation-query: SELECT 'x'
-        test-while-idle: true
-        test-on-return: false
-        test-on-borrow: false
-        pool-prepared-statements: true
-        max-pool-prepared-statement-per-connection-size: 20
+#  datasource:
+#      url: jdbc:mariadb://192.168.71.128:3306/spark
+#      username: root
+#      password: yanweichen
+#      driver-class-name: org.mariadb.jdbc.Driver
+#      druid:
+#        initial-size: 20
+#        max-active: 300
+#        min-idle: 1
+#        max-wait: 10000
+#        time-between-eviction-runs-millis: 10000
+#        min-evictable-idle-time-millis: 50000
+#        validation-query: SELECT 'x'
+#        test-while-idle: true
+#        test-on-return: false
+#        test-on-borrow: false
+#        pool-prepared-statements: true
+#        max-pool-prepared-statement-per-connection-size: 20
   profiles:
     active: ${JAR_ENV:dev}
   kafka:
-    bootstrap-servers: 192.168.71.128:9092
+#    bootstrap-servers: 172.23.4.120:9092,172.23.4.121:9092,172.23.4.122:9092,172.23.4.123:9092
+    bootstrap-servers: kafka1:9092, kafka2:9092, kafka3:9092, kafka4:9092, kafka5:9092, kafka6:9092
     consumer:
       group-id: foo
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -33,7 +34,6 @@ spring:
       value-serializer: com.ywc.spark.kafka.serialization.ProtocolBuffersSerializer
       batch-size: 65536
       buffer-memory: 524288
-    client-id: 1
 
 mapper:
   mappers:
